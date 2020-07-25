@@ -15,6 +15,14 @@ def getMatchID():
     for matchID in matchesID:
         getInfoWithMatchID(matchID)
 
+def getRankedPosition(accountId):
+    URL = "https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/" + str(accountId) + "?api_key=" + str(API_KEY)
+    info = requests.get(URL)
+    info = json.loads(info.text)
+    tier = info[0]["tier"]
+    rank = info[0]["rank"]
+    return tier,rank
+
 def getInfoWithMatchID(matchID):
     URL = "https://na1.api.riotgames.com/lol/match/v4/matches/" + str(matchID) + "?api_key=" + str(API_KEY)
     info = requests.get(URL)
@@ -37,9 +45,3 @@ def getRankedPosition(accountId):
     tier = info[0]["tier"]
     rank = info[0]["rank"]
     return tier,rank
-
-print(getRankedPosition("eWxokGvNaAQxQWg_ZvCxtpZFiM3Hcmu8kwvPYK9-tY4h9FE"))
-
-
-
-
