@@ -32,7 +32,7 @@ def getMatchID(matchesData):
         while True:
             try:
                 print("\tGetting info for match " + str(matchID), end = '')
-                matchesData.append(getInfoWithMatchID(matchID))
+                matchesData = matchesData.append(getInfoWithMatchID(matchID))
                 print(".", end='')
                 matchesID.remove(matchID)
                 print(".", end='')
@@ -42,8 +42,8 @@ def getMatchID(matchesData):
                 print("Done")
                 break
             except:
-                print("ERROR - Waiting 60 segs")
-                time.sleep(60)
+                print(" ERROR - Waiting 61 segs")
+                time.sleep(64)
                 print("Trying again")
 
 
@@ -54,8 +54,8 @@ def getRankedPosition(accountId):
     info = json.loads(info.text)
     while True:
         try:
-            tier = info[0]["tier"]
-            rank = info[0]["rank"]
+            tier = str(info[0]["tier"])
+            rank = str(info[0]["rank"])
             return tier,rank
         except:
             tier = "Unranked"
@@ -92,7 +92,10 @@ def getInfoWithMatchID(matchID):
                             "wardsKilled":wardskilled})
         df = df.append(data,ignore_index=True)
     return df
-print(getMatchID(matchesData))
 
+
+print(getMatchID(matchesData))
 #print(getInfoWithMatchID(3504621987))
+#print(len(matchesID))
+#print(matchesData.info())
 
