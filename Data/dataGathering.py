@@ -36,12 +36,3 @@ def getInfoWithMatchID(matchID):
         goldPerMin = info["participants"][x]["timeline"]["goldPerMinDeltas"]["10-20"]
         lane = info["participants"][x]["lane"]
         tier,rank = getRankedPosition(accountId)
-
-
-def getRankedPosition(accountId):
-    URL = "https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/" + str(accountId) + "?api_key=" + str(API_KEY)
-    info = requests.get(URL)
-    info = json.loads(info.text)
-    tier = info[0]["tier"]
-    rank = info[0]["rank"]
-    return tier,rank
