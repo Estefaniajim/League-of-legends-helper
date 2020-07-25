@@ -1,3 +1,2 @@
 .env
-matchesData.p
-matchesid.p
+*.p
