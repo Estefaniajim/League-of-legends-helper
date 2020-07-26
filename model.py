@@ -3,15 +3,16 @@ import Data.dataAnalysis as da
 import Data.liveDataLAN as lan
 import Data.liveDataNA as na
 
-summonerName,server,lane = app.getUser()
+#summonerName,server,lane = app.getUser()
 
-def getDataServer():
+def getDataServer(server,summonerName):
     if server == "LAN":
         summonerId = lan.gettingSummonerId(summonerName)
         tier, rank = lan.getRankedPosition(summonerId)
         return summonerId,tier,rank
     else:
-        summonerId, tier, rank = na.gettingSummonerData()
+        summonerId= na.gettingSummonerId(summonerName)
+        tier,rank = na.getRankedPosition(summonerId)
         return summonerId,tier,rank
 
 def refreshData():
