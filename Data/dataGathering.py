@@ -48,8 +48,8 @@ def getMatchID(matchesData):
                 print("Trying again")
 
 
-def getRankedPosition(accountId):
-    URL = "https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/" + str(accountId) + "?api_key=" + str(
+def getRankedPosition(summonerId):
+    URL = "https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/" + str(summonerId) + "?api_key=" + str(
         API_KEY)
     info = requests.get(URL)
     info = json.loads(info.text)
