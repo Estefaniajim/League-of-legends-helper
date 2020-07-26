@@ -3,8 +3,6 @@ import requests
 import json
 import os
 from dotenv import load_dotenv
-import math
-import Data.dataAnalysis as analysis
 import Data.dataGathering as ranked
 
 # Getting the api key from .env
