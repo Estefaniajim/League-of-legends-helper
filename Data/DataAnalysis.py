@@ -1,4 +1,3 @@
-import pandas as pd
 import pickle
 import math
 
@@ -13,14 +12,10 @@ def conditions(lane,tier,rank,file):
     con3 = file["rank"] == rank
     return con1,con2,con3
 
-def filterinData(data):
-    return None
-
 def getAvgCreepsPerMin(lane,tier,rank):
     file = loadData()
     con1,con2,con3 = conditions(lane,tier,rank,file)
     data = file[con1 & con2 & con3]
-    #data = filterinData(data)
     avg = math.ceil(data["creepsPerMin"].describe()["mean"])
     return avg
 
@@ -28,7 +23,6 @@ def getAvgGoldPerMin(lane,tier,rank):
     file = loadData()
     con1, con2, con3 = conditions(lane, tier, rank, file)
     data = file[con1 & con2 & con3]
-    #data = filterinData(data)
     avg = math.ceil(data["goldPerMin"].describe()["mean"])
     return avg
 
@@ -36,7 +30,6 @@ def getAvgKills(lane,tier,rank):
     file = loadData()
     con1, con2, con3 = conditions(lane, tier, rank, file)
     data = file[con1 & con2 & con3]
-    # data = filterinData(data)
     avg = math.ceil(data["kills"].describe()["mean"])
     return avg
 
@@ -44,7 +37,6 @@ def getAvgDeaths(lane,tier,rank):
     file = loadData()
     con1, con2, con3 = conditions(lane, tier, rank, file)
     data = file[con1 & con2 & con3]
-    # data = filterinData(data)
     avg = math.ceil(data["deaths"].describe()["mean"])
     return avg
 
@@ -52,7 +44,6 @@ def getAvgAssists(lane,tier,rank):
     file = loadData()
     con1, con2, con3 = conditions(lane, tier, rank, file)
     data = file[con1 & con2 & con3]
-    # data = filterinData(data)
     avg = math.ceil(data["assists"].describe()["mean"])
     return avg
 
@@ -60,7 +51,6 @@ def getAvgGoldEarned(lane,tier,rank):
     file = loadData()
     con1, con2, con3 = conditions(lane, tier, rank, file)
     data = file[con1 & con2 & con3]
-    # data = filterinData(data)
     avg = math.ceil(data["goldEarned"].describe()["mean"])
     return avg
 
@@ -68,7 +58,6 @@ def getAvgWardsPlaced(lane,tier,rank):
     file = loadData()
     con1, con2, con3 = conditions(lane, tier, rank, file)
     data = file[con1 & con2 & con3]
-    # data = filterinData(data)
     avg = math.ceil(data["wardsPlaced"].describe()["mean"])
     return avg
 
@@ -76,7 +65,5 @@ def getAvgWardsKilled(lane,tier,rank):
     file = loadData()
     con1, con2, con3 = conditions(lane, tier, rank, file)
     data = file[con1 & con2 & con3]
-    # data = filterinData(data)
     avg = math.ceil(data["wardsKilled"].describe()["mean"])
     return avg
-
