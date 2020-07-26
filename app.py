@@ -4,15 +4,18 @@ def delete():
     screen1.destroy()
     screen3.destroy()
 
+def getUser():
+    return SN,Ser,Pos
+
 def user():
-    SN = name_entry.get()
-    Pos = Pos_entry.get()
-    Ser = Ser_entry.get()
+    SN = str(name_entry.get())
+    Pos = str(Pos_entry.get())
+    Ser = str(Ser_entry.get())
     name_entry.delete(0, tk.END)
     Pos_entry.delete(0, tk.END)
     Ser_entry.delete(0, tk.END)
     login_sucess()
-    return SN,Pos,Ser
+
 
 def login_sucess():
     global screen3
@@ -63,6 +66,7 @@ def main_screen():
     tk.Button(text="Login", height="2", width="30", command = login).pack()
     tk.Label(text="").pack()
     screen.mainloop()
+
 
 main_screen()
 
