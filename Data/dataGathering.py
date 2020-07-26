@@ -43,7 +43,7 @@ def getMatchID(matchesData):
                 print("Done")
                 break
             except:
-                print(" ERROR - Waiting 61 segs")
+                print(" ERROR - Waiting 64 segs")
                 time.sleep(64)
                 print("Trying again")
 
