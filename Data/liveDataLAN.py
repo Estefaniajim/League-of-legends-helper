@@ -2,8 +2,7 @@ import requests
 import json
 import os
 from dotenv import load_dotenv
-import math
-import Data.dataAnalysis as analysis
+
 
 # Getting the api key from .env
 load_dotenv()
@@ -40,9 +39,3 @@ def getRankedPosition(summonerId):
             tier = "Unranked"
             rank = 0
             return tier, rank
-
-def gettingAvgScores(gameTime,lane,tier,rank):
-    gameTime = gameTime/60
-    creepsPerMin = math.ceil((analysis.getAvgCreepsPerMin(lane,tier,rank))*gameTime)
-    goldPerMin = math.ceil(analysis.getAvgGoldPerMin(lane,tier,rank)*gameTime)
-    return creepsPerMin,goldPerMin

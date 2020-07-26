@@ -67,3 +67,9 @@ def getAvgWardsKilled(lane,tier,rank):
     data = file[con1 & con2 & con3]
     avg = math.ceil(data["wardsKilled"].describe()["mean"])
     return avg
+
+def gettingAvgScores(gameTime,lane,tier,rank):
+    gameTime = gameTime/60
+    creepsPerMin = math.ceil(getAvgCreepsPerMin(lane,tier,rank)*gameTime)
+    goldPerMin = math.ceil(getAvgGoldPerMin(lane,tier,rank)*gameTime)
+    return creepsPerMin,goldPerMin
