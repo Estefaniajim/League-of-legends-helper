@@ -21,8 +21,7 @@ def refreshData(lane,server,summonerName,creepsPerMin,goldPerMin):
         try:
             summonerId,tier,rank = getDataServer(server,summonerName)
             if server == "LAN":
-                # gameTime = lan.gettingLiveScores(summonerId)
-                gameTime = 120
+                gameTime = lan.gettingLiveScores(summonerId)
             else:
                 gameTime = na.gettingLiveScores(summonerId)
             creepsPerMin, goldPerMin = da.gettingAvgScores(gameTime,lane,tier,rank)
