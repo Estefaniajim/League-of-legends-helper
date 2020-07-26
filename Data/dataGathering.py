@@ -68,29 +68,31 @@ def getInfoWithMatchID(matchID):
     info = json.loads(info.text)
     df = pd.DataFrame()
     for x in range(10):
-        SummonerID = info["participantIdentities"][x]["player"]["summonerId"]
-        kills = info["participants"][x]["stats"]["kills"]
-        deaths = info["participants"][x]["stats"]["deaths"]
-        assists = info["participants"][x]["stats"]["assists"]
-        goldEarned = info["participants"][x]["stats"]["goldEarned"]
-        wardsPlaced = info["participants"][x]["stats"]["wardsPlaced"]
-        wardskilled = info["participants"][x]["stats"]["wardsKilled"]
-        creepsPerMin = info["participants"][x]["timeline"]["creepsPerMinDeltas"]["0-10"]
-        goldPerMin = info["participants"][x]["timeline"]["goldPerMinDeltas"]["0-10"]
-        lane = info["participants"][x]["timeline"]["lane"]
-        tier,rank = getRankedPosition(SummonerID)
-        data = pd.Series({"lane": lane,
-                            "tier": tier,
-                            "rank": rank,
-                            "creepsPerMin": creepsPerMin,
-                            "goldPerMin": goldPerMin,
-                            "kills": kills,
-                            "deaths": deaths,
-                            "assists":assists,
-                            "goldEarned":goldEarned,
-                            "wardsPlaced":wardsPlaced,
-                            "wardsKilled":wardskilled})
-        df = df.append(data,ignore_index=True)
+        teamID = 0 if info["participants"][x]["teamId"] == 100 else 1
+        if info["teams"][teamID]["win"] == "Win":
+            SummonerID = info["participantIdentities"][x]["player"]["summonerId"]
+            kills = info["participants"][x]["stats"]["kills"]
+            deaths = info["participants"][x]["stats"]["deaths"]
+            assists = info["participants"][x]["stats"]["assists"]
+            goldEarned = info["participants"][x]["stats"]["goldEarned"]
+            wardsPlaced = info["participants"][x]["stats"]["wardsPlaced"]
+            wardskilled = info["participants"][x]["stats"]["wardsKilled"]
+            creepsPerMin = info["participants"][x]["timeline"]["creepsPerMinDeltas"]["0-10"]
+            goldPerMin = info["participants"][x]["timeline"]["goldPerMinDeltas"]["0-10"]
+            lane = info["participants"][x]["timeline"]["lane"]
+            tier,rank = getRankedPosition(SummonerID)
+            data = pd.Series({"lane": lane,
+                                "tier": tier,
+                                "rank": rank,
+                                "creepsPerMin": creepsPerMin,
+                                "goldPerMin": goldPerMin,
+                                "kills": kills,
+                                "deaths": deaths,
+                                "assists":assists,
+                                "goldEarned":goldEarned,
+                                "wardsPlaced":wardsPlaced,
+                                "wardsKilled":wardskilled})
+            df = df.append(data,ignore_index=True)
     return df
 
 
