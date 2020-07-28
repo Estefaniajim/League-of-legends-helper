@@ -97,6 +97,6 @@ def getInfoWithMatchID(matchID):
             df = df.append(data, ignore_index=True)
     return df
 
-#   print(getMatchID(matchesData))
+print(getMatchID(matchesData))
 # print(len(matchesID))
 # print(matchesData.info())
