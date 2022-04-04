@@ -73,3 +73,6 @@ def gettingAvgScores(gameTime,lane,tier,rank):
     creepsPerMin = math.ceil(getAvgCreepsPerMin(lane,tier,rank)*gameTime)
     goldPerMin = math.ceil(getAvgGoldPerMin(lane,tier,rank)*gameTime)
     return creepsPerMin,goldPerMin
+
+file = loadData()
+print(file)

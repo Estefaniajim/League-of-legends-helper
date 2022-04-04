@@ -9,6 +9,7 @@ import time
 # Getting the api key from .env
 load_dotenv()
 API_KEY = os.getenv("RIOT_API_KEY")
+
 # Getting the data from a json file to a string
 while True:
     try:
@@ -43,8 +44,8 @@ def getMatchID(matchesData):
                 print("Done")
                 break
             except:
-                print(" ERROR - Waiting 64 segs")
-                time.sleep(64)
+                print(" ERROR - Waiting 120 segs")
+                time.sleep(120)
                 print("Trying again")
 
 
@@ -65,38 +66,55 @@ def getRankedPosition(summonerId):
 
 
 def getInfoWithMatchID(matchID):
-    URL = "https://na1.api.riotgames.com/lol/match/v4/matches/" + str(matchID) + "?api_key=" + str(API_KEY)
+    URL = "https://americas.api.riotgames.com/lol/match/v5/matches/NA1_" + str(matchID) + "?api_key=" + str(API_KEY)
     info = requests.get(URL)
     info = json.loads(info.text)
     df = pd.DataFrame()
     for x in range(10):
-        teamID = 0 if info["participants"][x]["teamId"] == 100 else 1
-        if info["teams"][teamID]["win"] == "Win":
-            SummonerID = info["participantIdentities"][x]["player"]["summonerId"]
-            kills = info["participants"][x]["stats"]["kills"]
-            deaths = info["participants"][x]["stats"]["deaths"]
-            assists = info["participants"][x]["stats"]["assists"]
-            goldEarned = info["participants"][x]["stats"]["goldEarned"]
-            wardsPlaced = info["participants"][x]["stats"]["wardsPlaced"]
-            wardskilled = info["participants"][x]["stats"]["wardsKilled"]
-            creepsPerMin = info["participants"][x]["timeline"]["creepsPerMinDeltas"]["0-10"]
-            goldPerMin = info["participants"][x]["timeline"]["goldPerMinDeltas"]["0-10"]
-            lane = info["participants"][x]["timeline"]["lane"]
+        teamID = 0 if info["info"]["participants"][x]["teamId"] == 100 else 1
+        if info["info"]["teams"][teamID]["win"] == True:
+            SummonerID = info["info"]["participants"][x]["summonerId"]
+            kills = info["info"]["participants"][x]["kills"]
+            killingSprees = info["info"]["participants"][x]["killingSprees"]
+            largestCriticalStrike = info["info"]["participants"][x]["largestCriticalStrike"]
+            largestKillingSpree = info["info"]["participants"][x]["largestKillingSpree"]
+            largestMultiKill = info["info"]["participants"][x]["largestMultiKill"]
+            deaths = info["info"]["participants"][x]["deaths"]
+            assists = info["info"]["participants"][x]["assists"]
+            goldEarned = info["info"]["participants"][x]["goldEarned"]
+            goldSpent = info["info"]["participants"][x]["goldSpent"]
+            wardsPlaced = info["info"]["participants"][x]["detectorWardsPlaced"]
+            creepsKilled = info["info"]["participants"][x]["totalMinionsKilled"]
+            damageDealtToBuildings = info["info"]["participants"][x]["damageDealtToBuildings"]
+            damageDealtToObjectives = info["info"]["participants"][x]["damageDealtToObjectives"]
+            damageDealtToTurrets = info["info"]["participants"][x]["damageDealtToTurrets"]
+            magicDamageDealt = info["info"]["participants"][x]["magicDamageDealtToChampions"]
+            physicalDamageDealt = info["info"]["participants"][x]["physicalDamageDealtToChampions"]
+            lane = info["info"]["participants"][x]["lane"]
             tier, rank = getRankedPosition(SummonerID)
             data = pd.Series({"lane": lane,
                               "tier": tier,
                               "rank": rank,
-                              "creepsPerMin": creepsPerMin,
-                              "goldPerMin": goldPerMin,
+                              "creepsKilled": creepsKilled,
                               "kills": kills,
+                              "killingSprees": killingSprees,
+                              "largestCriticalStrike": largestCriticalStrike,
+                              "largestKillingSpree": largestKillingSpree,
+                              "largestMultiKill": largestMultiKill,
                               "deaths": deaths,
                               "assists": assists,
                               "goldEarned": goldEarned,
+                              "goldSpent" : goldSpent,
                               "wardsPlaced": wardsPlaced,
-                              "wardsKilled": wardskilled})
+                              "damageDealtToBuildings": damageDealtToBuildings,
+                              "damageDealtToObjectives": damageDealtToObjectives,
+                              "damageDealtToTurrets": damageDealtToTurrets,
+                              "magicDamageDealt": magicDamageDealt,
+                              "physicalDamageDealt": physicalDamageDealt
+                              })
             df = df.append(data, ignore_index=True)
     return df
 
 print(getMatchID(matchesData))
-# print(len(matchesID))
-# print(matchesData.info())
+#print(len(matchesID))
+#print(matchesData.info())
