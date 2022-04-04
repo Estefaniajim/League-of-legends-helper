@@ -1,3 +1,10 @@
 .env
 *.p
 .xml
+.idea/csv-plugin.xml
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/League-of-legends-helper.iml
+*.xml
+*.xml
+.idea/workspace.xml
+.idea/workspace.xml
